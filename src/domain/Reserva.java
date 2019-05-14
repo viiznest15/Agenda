@@ -1,12 +1,10 @@
 package domain;
 
-import java.util.Date;
-
 public class Reserva {
 	private String nomReunion, sala, dias, horas;
-	private Date datIni, datFin;
+	private String datIni, datFin;
 
-	public Reserva(String nomReunion, String sala, String dias, String horas, Date datIni, Date datFin) {
+	public Reserva(String nomReunion, String sala, String dias, String horas, String datIni, String datFin) {
 
 		this.sala = sala;
 		this.dias = dias;
@@ -31,11 +29,11 @@ public class Reserva {
 		return horas;
 	}
 
-	public Date getDatIni() {
+	public String getDatIni() {
 		return datIni;
 	}
 
-	public Date getDatFin() {
+	public String getDatFin() {
 		return datFin;
 	}
 
@@ -55,11 +53,11 @@ public class Reserva {
 		this.horas = horas;
 	}
 
-	public void setDatIni(Date datIni) {
+	public void setDatIni(String datIni) {
 		this.datIni = datIni;
 	}
 
-	public void setDatFin(Date datFin) {
+	public void setDatFin(String datFin) {
 		this.datFin = datFin;
 	}
 
