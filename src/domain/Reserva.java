@@ -6,7 +6,7 @@ public class Reserva {
 	private String nomReunion, sala, dias, horas;
 	private Date datIni, datFin;
 
-	public Reserva(String nomReunion, String sala, String dias, String horas, Date datIni, Date datFin) {
+	public Reserva(String nomReunion, String sala, Date datIni, Date datFin, String dias, String horas) {
 
 		this.sala = sala;
 		this.dias = dias;
