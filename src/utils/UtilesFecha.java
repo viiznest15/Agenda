@@ -3,6 +3,8 @@ package utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class UtilesFecha {
@@ -15,6 +17,10 @@ public class UtilesFecha {
 
 	public static Date ints2Date(int d, int m, int a) {
 		String presuntaFecha = d + "/" + m + "/" + a;
+		return string2Date(presuntaFecha);
+	}
+	public static Date ints2Date(int m, int a) {
+		String presuntaFecha = m + "/" + a;
 		return string2Date(presuntaFecha);
 	}
 
@@ -52,5 +58,43 @@ public class UtilesFecha {
 		} catch (ParseException e) {
 			throw new RuntimeException("El string proporcionado, no se ajusta al patron indicado!");
 		}
+	}
+
+	public static String getDayDate(Date fecha) {
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("u"); // dia de la semana
+		String dia = (String) simpleDateformat.format(fecha);
+		return dia;
+	}
+
+	public static String getDayDate(int año, int mes) { // Sobrecarga teniendo en cuenta "config.txt"
+		Date fecha = ints2Date(mes, año);
+		return getDayDate(fecha);
+	}
+
+	public static int getWeekDate(Date fecha) {
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana año
+		int dia = Integer.parseInt(simpleDateformat.format(fecha));
+		return dia;
+	}
+	
+	public static int getTotalWeekMonth(int año, int mes) {
+		int ultimoDiaMes = getLastDayMonth(año, mes);
+		Date fecha = ints2Date(ultimoDiaMes, mes, año);
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("W"); // w --> numero semana MES
+		System.out.println(simpleDateformat.format(fecha));
+		int semanasMes = Integer.parseInt(simpleDateformat.format(fecha));
+		return semanasMes;
+	}
+	public static int getLastDayMonth(int año, int mes) {
+		Date fecha = ints2Date(mes, año);		
+		LocalDate fechaLocal = convertToLocalDateViaInstant(fecha);
+		int ultimoDiaMes = fechaLocal.lengthOfMonth();
+		return ultimoDiaMes;
+	}
+	
+	public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDate();
 	}
 }

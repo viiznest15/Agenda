@@ -24,7 +24,7 @@ public class ServicioCreacionReserva {
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
 				Reserva reserva = crearReserva(lin);
-				reservas.put(reserva.getSala() ,reserva);
+				reservas.put(reserva.getSala(), reserva);
 			}
 		}
 	catch(FileNotFoundException e){
