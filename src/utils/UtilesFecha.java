@@ -66,35 +66,36 @@ public class UtilesFecha {
 		return dia;
 	}
 
-	public static String getDayDate(int año, int mes) { // Sobrecarga teniendo en cuenta "config.txt"
-		Date fecha = ints2Date(mes, año);
+	public static String getDayDate(int aï¿½o, int mes) { // Sobrecarga teniendo en cuenta "config.txt"
+		Date fecha = ints2Date(mes, aï¿½o);
 		return getDayDate(fecha);
 	}
 
 	public static int getWeekDate(Date fecha) {
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana año
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana aï¿½o
 		int dia = Integer.parseInt(simpleDateformat.format(fecha));
 		return dia;
 	}
-	
-	public static int getTotalWeekMonth(int año, int mes) {
-		int ultimoDiaMes = getLastDayMonth(año, mes);
-		Date fecha = ints2Date(ultimoDiaMes, mes, año);
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("W"); // w --> numero semana MES
-		System.out.println(simpleDateformat.format(fecha));
-		int semanasMes = Integer.parseInt(simpleDateformat.format(fecha));
-		return semanasMes;
+
+	public static int getTotalWeekMonth(int mes, int aï¿½o) {
+
+		Date date = ints2Date(1, mes, aï¿½o);
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int start = c.get(Calendar.WEEK_OF_MONTH);
+
+		c.add(Calendar.MONTH, 1);
+		c.add(Calendar.DATE, -1);
+		int end = c.get(Calendar.WEEK_OF_MONTH);
+
+		return end - start + 1;
 	}
-	public static int getLastDayMonth(int año, int mes) {
-		Date fecha = ints2Date(mes, año);		
-		LocalDate fechaLocal = convertToLocalDateViaInstant(fecha);
-		int ultimoDiaMes = fechaLocal.lengthOfMonth();
-		return ultimoDiaMes;
-	}
-	
-	public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
-	    return dateToConvert.toInstant()
-	      .atZone(ZoneId.systemDefault())
-	      .toLocalDate();
+
+	public static int getLastDayMonth(int aï¿½o, int mes) {
+		Date fecha = ints2Date(1, mes, aï¿½o);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fecha);
+		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 }

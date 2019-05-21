@@ -13,9 +13,10 @@ import domain.Reserva;
 import static utils.UtilesFecha.*;
 
 public class ServicioCreacionReserva {
-	public Map<String,Reserva> getReservaDesdeFichero(String nomFichero) {
 
-		Map<String, Reserva> reservas = Collections.emptyMap();
+	public Map<String, String> getReservaDesdeFichero(String nomFichero) {
+
+		Map<String, String> reservas = Collections.emptyMap();
 
 		File fichero = new File(nomFichero);
 
@@ -24,14 +25,32 @@ public class ServicioCreacionReserva {
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
 				Reserva reserva = crearReserva(lin);
-				reservas.put(reserva.getSala(), reserva);
+				reservas.put(reserva.getSala(), "");
 			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-	catch(FileNotFoundException e){
-		e.printStackTrace();
+		return reservas;
 	}
-	return reservas;
-}
+
+	public List<Reserva> getListReservaDesdeFichero(String nomFichero) {
+
+		List<Reserva> reservas = Collections.emptyList();
+
+		File fichero = new File(nomFichero);
+
+		try (Scanner sc = new Scanner(fichero)) {
+			reservas = new ArrayList<>();
+			while (sc.hasNextLine()) {
+				String lin = sc.nextLine();
+				Reserva reserva = crearReserva(lin);
+				reservas.add(reserva);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return reservas;
+	}
 
 	private Reserva crearReserva(String lin) {
 
