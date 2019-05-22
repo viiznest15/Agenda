@@ -8,9 +8,9 @@ import domain.Config;
 
 public class ServiceConfigCreation {
 
-	public Config getConfLanguage(String nomFichero) {
+	public Config getConf(String nomFichero) {
 
-		String lin = getInfoLanguage(nomFichero);
+		String lin = getInfoConf(nomFichero);
 		final byte YEAR = 0, MONTH = 1, INPUTLANGUAGE = 2, OUTPUTLANGUAGE = 3;
 
 		String[] parts = lin.split(" ");
@@ -24,7 +24,7 @@ public class ServiceConfigCreation {
 		return new Config(inputLanguage, outputLanguage, year, month);
 	}
 
-	private String getInfoLanguage(String nomFichero) {
+	private String getInfoConf(String nomFichero) {
 		File fichero = new File(nomFichero);
 		String lin = "";
 		try (Scanner sc = new Scanner(fichero)) {

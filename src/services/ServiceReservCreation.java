@@ -57,19 +57,19 @@ public class ServiceReservCreation {
 
 	private Reservation getReserv(String lin) {
 
-		final byte ESTADO = 0, SALA = 1, FECHAINI = 2, FECHAFIN = 3, DIAS = 4, HORAS = 5;
+		final byte MEETINGNAME = 0, LOUNGE = 1, INIDAT = 2, FINALDAT = 3, DAYS = 4, HOURS = 5;
 
 		String[] parts = lin.split(" ");
 
-		String estado = parts[ESTADO];
-		String sala = parts[SALA];
+		String meetingName = parts[MEETINGNAME];
+		String lounge = parts[LOUNGE];
 		
-		Date fechaIni = string2Date(parts[FECHAINI]);
-		Date fechaFin = string2Date(parts[FECHAFIN]);
+		Date iniDat = string2Date(parts[INIDAT]);
+		Date finalDat = string2Date(parts[FINALDAT]);
 		
-		String dias = parts[DIAS];
-		String horas = parts[HORAS];
+		String days = parts[DAYS];
+		String hours = parts[HOURS];
 
-		return new Reservation(estado, sala, fechaIni, fechaFin, dias, horas);
+		return new Reservation(meetingName, lounge, iniDat, finalDat, days, hours);
 	}
 }

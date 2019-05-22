@@ -7,7 +7,7 @@ public class Reservation {
 	private Date iniDat, finalDat;
 
 	public Reservation(String meetingName, String lounge, Date iniDat, Date finalDat, String days, String hours) {
-
+		this.meetingName = meetingName;
 		this.lounge = lounge;
 		this.days = days;
 		this.hours = hours;
