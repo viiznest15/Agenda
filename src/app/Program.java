@@ -1,39 +1,43 @@
 package app;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-import domain.Scheduler;
+import domain.Config;
+import domain.Reservation;
+import services.ServiceReservCreation;
+import services.ServiceConfigCreation;
+import services.ServiceManagementLonge;
+import services.ServiceCodeLanguage;;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {
-		
-//		for (String m : new String[] {"2019-01", "2019-02", "2019-03",
-//	              "2019-04", "2019-05", "2019-06", "2019-07", "2019-08",
-//	              "2019-09", "2019-10", "2019-11", "2019-12"}) {
-//	      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-//	      Date date = format.parse(m);
-//	      Calendar c = Calendar.getInstance();
-//	      c.setTime(date);
-//
-//	      int start = c.get(Calendar.WEEK_OF_MONTH);
-//
-//	      c.add(Calendar.MONTH, 1);
-//	      c.add(Calendar.DATE, -1);
-//	      int end = c.get(Calendar.WEEK_OF_MONTH);
-//	      System.out.println(" # of weeks in " + format.format(c.getTime())
-//	              + ": " + (end - start + 1));
-//	  }
-		
-		Scheduler matrix = new Scheduler();
-		matrix.generateScheduler(5);
-		
-		for(String[][] table : matrix.getTables()){
-			System.out.println(table.hashCode());
-		}
+	public static void main(String[] args) {
+		ServiceReservCreation servReserv = new ServiceReservCreation();
+		ServiceManagementLonge servSalas = new ServiceManagementLonge();
+		ServiceConfigCreation servConf = new ServiceConfigCreation();
+		ServiceCodeLanguage servCodeLan = new ServiceCodeLanguage();
 
+		// IMPRESION DE RESERVAS POR SALA---------------------------------------------
+		Map<String, List<Reservation>> reservas = servSalas.getSalasConReservas("input/peticions.txt");
+		reservas.forEach((k, v) -> System.out.println("Key: " + k + ": \nValue: \n" + v));
+		// ---------------------------------------------------------------------------
+
+		// IMPRESION DE LA CONFIGURACION----------------------------------------------
+		Config config = servConf.getConf("input/config.txt");
+		System.out.println(config);
+		// ---------------------------------------------------------------------------
+
+		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE ENTRADA----------------------------
+		Map<String, String> codeValueInputLanguage = servCodeLan.getLanguageCodes(config.getInputLanguage());
+		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+		// ---------------------------------------------------------------------------
+
+		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE SALIDA-----------------------------
+		System.out.println("\n");
+		Map<String, String> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
+		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+		// ---------------------------------------------------------------------------
 	}
+
 }
