@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import domain.Reserva;
-import static utils.UtilesFecha.*;
+import tools.DateTools;
+
 
 public class ServicioCreacionReserva {
 	public Map<String,Reserva> getReservaDesdeFichero(String nomFichero) {
@@ -42,8 +43,8 @@ public class ServicioCreacionReserva {
 		String estado = parts[ESTADO];
 		String sala = parts[SALA];
 		
-		Date fechaIni = string2Date(parts[FECHAINI]);
-		Date fechaFin = string2Date(parts[FECHAFIN]);
+		Date fechaIni = DateTools.string2Date(parts[FECHAINI]);
+		Date fechaFin = DateTools.string2Date(parts[FECHAFIN]);
 		
 		String dias = parts[DIAS];
 		String horas = parts[HORAS];
