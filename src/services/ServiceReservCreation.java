@@ -1,20 +1,23 @@
 package services;
 
 
+import static tools.DateTools.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import domain.Reserva;
-import static utils.UtilesFecha.*;
+import domain.Reservation;
 
-public class ServicioCreacionReserva {
+public class ServiceReservCreation {
 
-	public Map<String, String> getReservaDesdeFichero(String nomFichero) {
+	public Map<String, String> getReservFromFile(String nomFichero) {
 
 		Map<String, String> reservas = Collections.emptyMap();
 
@@ -24,8 +27,8 @@ public class ServicioCreacionReserva {
 			reservas = new HashMap<>();
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
-				Reserva reserva = crearReserva(lin);
-				reservas.put(reserva.getSala(), "");
+				Reservation reserva = getReserv(lin);
+				reservas.put(reserva.getLounge(), "");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -33,9 +36,9 @@ public class ServicioCreacionReserva {
 		return reservas;
 	}
 
-	public List<Reserva> getListReservaDesdeFichero(String nomFichero) {
+	public List<Reservation> getReservListFromFile(String nomFichero) {
 
-		List<Reserva> reservas = Collections.emptyList();
+		List<Reservation> reservas = Collections.emptyList();
 
 		File fichero = new File(nomFichero);
 
@@ -43,7 +46,7 @@ public class ServicioCreacionReserva {
 			reservas = new ArrayList<>();
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
-				Reserva reserva = crearReserva(lin);
+				Reservation reserva = getReserv(lin);
 				reservas.add(reserva);
 			}
 		} catch (FileNotFoundException e) {
@@ -52,7 +55,7 @@ public class ServicioCreacionReserva {
 		return reservas;
 	}
 
-	private Reserva crearReserva(String lin) {
+	private Reservation getReserv(String lin) {
 
 		final byte ESTADO = 0, SALA = 1, FECHAINI = 2, FECHAFIN = 3, DIAS = 4, HORAS = 5;
 
@@ -67,6 +70,6 @@ public class ServicioCreacionReserva {
 		String dias = parts[DIAS];
 		String horas = parts[HORAS];
 
-		return new Reserva(estado, sala, fechaIni, fechaFin, dias, horas);
+		return new Reservation(estado, sala, fechaIni, fechaFin, dias, horas);
 	}
 }

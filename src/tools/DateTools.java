@@ -1,13 +1,12 @@
-package utils;
+package tools;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
-public class UtilesFecha {
+public class DateTools {
 
 	public static Date incFecha(Date fecha, int dias) {
 		long mseg = fecha.getTime();// ms transcurridos desde 1/1/70
@@ -66,8 +65,8 @@ public class UtilesFecha {
 		return dia;
 	}
 
-	public static String getDayDate(int a�o, int mes) { // Sobrecarga teniendo en cuenta "config.txt"
-		Date fecha = ints2Date(mes, a�o);
+	public static String getDayDate(int anyo, int mes) { // Sobrecarga teniendo en cuenta "config.txt"
+		Date fecha = ints2Date(mes, anyo);
 		return getDayDate(fecha);
 	}
 
@@ -77,9 +76,9 @@ public class UtilesFecha {
 		return dia;
 	}
 
-	public static int getTotalWeekMonth(int mes, int a�o) {
+	public static int getTotalWeekMonth(int mes, int anyo) {
 
-		Date date = ints2Date(1, mes, a�o);
+		Date date = ints2Date(1, mes, anyo);
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
@@ -92,8 +91,8 @@ public class UtilesFecha {
 		return end - start + 1;
 	}
 
-	public static int getLastDayMonth(int a�o, int mes) {
-		Date fecha = ints2Date(1, mes, a�o);
+	public static int getLastDayMonth(int anyo, int mes) {
+		Date fecha = ints2Date(1, mes, anyo);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(fecha);
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
