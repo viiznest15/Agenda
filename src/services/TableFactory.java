@@ -6,7 +6,7 @@ public class TableFactory {
 	private String[][] table;
 	
 	public String[][] createTable(){
-		setTable(new String[8][26]);
+		setTable(new String[26][8]);
 		return getTable();
 	}
 
