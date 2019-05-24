@@ -7,20 +7,30 @@ public abstract class AbsInterpreter {
 	
 //	private StringBuilder sb = new StringBuilder();
 	private String schedule;
-	private String[] weekDays;
-	private String[] monthsYear;
-	private String[] weekMask;
-	private String[] measuresOfTime;
+	private String[] weekDays = new String[6];
+	private String[] monthsYear = new String[11];
+	private String[] weekMask = new String[6];
+	private String[] measuresOfTime = new String[3];
 	private String generated;
 	private String closeTag;
 	private String error;
 	
 	public AbsInterpreter(Map<String, String> codelang){
+		
 		schedule = codelang.get(1);
-		weekDays = codelang.get(2).split(",");
-		weekMask = codelang.get(3).split(",");
-		monthsYear = codelang.get(4).split(",");
-		measuresOfTime = codelang.get(5).split(",");
+		
+		String str = codelang.get(2);
+		weekDays = str.split(",");
+		
+		str = codelang.get(3);
+		weekMask = str.split(",");
+		
+		str = codelang.get(4);
+		monthsYear = str.split(",");
+		
+		str = codelang.get(5);
+		measuresOfTime = str.split(",");
+		
 		generated = codelang.get(6);
 		closeTag = codelang.get(7);
 		error = codelang.get(8);
@@ -38,12 +48,6 @@ public abstract class AbsInterpreter {
 		return weekDays;
 	}
 	
-//	public String getWeekDays(String args){
-//		if(Arrays.asList(weekDays).contains(args)){
-//			return weekDays[args];
-//		}	
-//	}
-
 	public void setWeekDays(String[] weekDays) {
 		this.weekDays = weekDays;
 	}

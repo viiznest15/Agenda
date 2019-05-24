@@ -38,6 +38,15 @@ public class Program {
 		Map<String, String> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
 		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
+		
+		//COMPROBANDO Q iNTERPRETER INICIALIZA LAS TABLAS-----------------------------
+				System.out.println("**********************************************");
+				Controller cntr = new Controller();
+				cntr.setConfigFile();
+				cntr.configInterpreter(cntr.getConfigFile());
+				cntr.initializeTable();
+				String[][] table = cntr.getTable();
+				System.out.println(table.toString());
 	}
 
 }

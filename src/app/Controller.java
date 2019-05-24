@@ -7,10 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import domain.CatalanInterpreter;
 import domain.Config;
+import domain.EnglishInterpreter;
 import domain.Interpreter;
 import domain.Reservation;
 import domain.Scheduler;
+import domain.SpanishInterpreter;
 import services.ServiceCodeLanguage;
 import services.ServiceConfigCreation;
 import services.ServiceManagementLonge;
@@ -25,7 +28,7 @@ public class Controller {
 	private String[][] table;
 	private Scheduler tablas = new Scheduler();
 	private Config configuration;
-	private Interpreter inter;
+	public Interpreter itr;
 	
 	
 	//adquisicion de los servicios
@@ -52,8 +55,34 @@ public class Controller {
 				getTotalWeekMonth(configuration.getMonth(),
 						configuration.getYear()));
 	}
+	//Setting Interpreter
+	public void setInterpreter(Interpreter inter){
+		itr = inter;
+	}
 	
-	 
+	public void configInterpreter(Config config){
+		if(config.getOutputLanguage().equals("ENG")){
+			setInterpreter(new EnglishInterpreter(servCodeLan.getLanguageCodes("ENG")));
+		}
+		else if(config.getOutputLanguage().equals("ES")){
+			setInterpreter(new SpanishInterpreter(servCodeLan.getLanguageCodes("ES")));
+		}
+		else{
+			setInterpreter(new CatalanInterpreter(servCodeLan.getLanguageCodes("CAT")));
+		}
+	}
+	
+	public Config getConfigFile(){
+		return configuration;
+	}
+	
+	public void initializeTable(){
+		table =  itr.initialize(table);
+	}
+	
+	public String[][] getTable(){
+		return table;
+	} 
 	
 
 }
