@@ -9,7 +9,7 @@ public abstract class AbsInterpreter {
 	private String schedule;
 	private String[] weekDays = new String[6];
 	private String[] monthsYear = new String[11];
-	private String[] weekMask = new String[6];
+	private char[] weekMask = new char[6];
 	private String[] measuresOfTime = new String[3];
 	private String generated;
 	private String closeTag;
@@ -17,23 +17,24 @@ public abstract class AbsInterpreter {
 	
 	public AbsInterpreter(Map<String, String> codelang){
 		
-		schedule = codelang.get(1);
+		schedule = codelang.get("001");
+		generated = codelang.get("006");
+		closeTag = codelang.get("007");
+		error = codelang.get("008");
 		
-		String str = codelang.get(2);
+		String str = codelang.get("002");
 		weekDays = str.split(",");
 		
-		str = codelang.get(3);
-		weekMask = str.split(",");
+		str = codelang.get("003");
+		weekMask = str.toCharArray();
 		
-		str = codelang.get(4);
+		str = codelang.get("004");
 		monthsYear = str.split(",");
 		
-		str = codelang.get(5);
+		str = codelang.get("005");
 		measuresOfTime = str.split(",");
 		
-		generated = codelang.get(6);
-		closeTag = codelang.get(7);
-		error = codelang.get(8);
+
 	}
 
 	public String getTitle() {
@@ -60,11 +61,11 @@ public abstract class AbsInterpreter {
 		this.monthsYear = monthsYear;
 	}
 
-	public String[] getWeekMask() {
+	public char[] getWeekMask() {
 		return weekMask;
 	}
 
-	public void setWeekMask(String[] weekMask) {
+	public void setWeekMask(char[] weekMask) {
 		this.weekMask = weekMask;
 	}
 

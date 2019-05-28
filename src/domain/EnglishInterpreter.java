@@ -6,7 +6,6 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 
 	public EnglishInterpreter(Map<String, String> codelang) {
 		super(codelang);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -15,9 +14,15 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 		String[] weekDays = getWeekDays();
 		String[] measureOfTime = getTimeMask();
 		
-		table[0][0] = measureOfTime[2];
-		 for (int i = 0; i < weekDays.length; i++) 
-		 { System.arraycopy(weekDays[i], 0, tmp[i], 1, weekDays[0].length()-1); }
+		tmp[0][0] = measureOfTime[2];
+		for(int i = 1; i<tmp[0].length; i++){
+			tmp[0][i] = weekDays[i-1];
+		}
+		
+		tmp[1][0] = measureOfTime[3];
+		for(int i = 1; i < tmp.length-1; i++){
+			tmp[i+1][0] = String.valueOf(i-1) + "-" + String.valueOf(i);
+		}
 		 
 		 return tmp;
 	}

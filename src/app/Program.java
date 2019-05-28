@@ -13,7 +13,7 @@ import services.ServiceCodeLanguage;;
 public class Program {
 
 	public static void main(String[] args) {
-		ServiceReservCreation servReserv = new ServiceReservCreation();
+//		ServiceReservCreation servReserv = new ServiceReservCreation();
 		ServiceManagementLonge servSalas = new ServiceManagementLonge();
 		ServiceConfigCreation servConf = new ServiceConfigCreation();
 		ServiceCodeLanguage servCodeLan = new ServiceCodeLanguage();
@@ -45,8 +45,8 @@ public class Program {
 				cntr.setConfigFile();
 				cntr.configInterpreter(cntr.getConfigFile());
 				cntr.initializeTable();
-				String[][] table = cntr.getTable();
-				System.out.println(table.toString());
+				
+				cntr.tableToString();
 	}
 
 }

@@ -3,6 +3,7 @@ package app;
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class Controller {
 	//variables locales
 	private Map<String, List<Reservation>> peticiones = new HashMap<>();
 	private List<String[][]> allTables = new ArrayList<>();
-	private String[][] table;
+	private String[][] table = new String[26][8];
 	private Scheduler tablas = new Scheduler();
 	private Config configuration;
 	public Interpreter itr;
@@ -82,7 +83,19 @@ public class Controller {
 	
 	public String[][] getTable(){
 		return table;
-	} 
+	}
+	
+	public void tableToString(){
+		String lineSeparator = System.lineSeparator();
+		StringBuilder sb = new StringBuilder();
+		
+		for(String[] row: this.table){
+			sb.append(Arrays.toString(row)).append(lineSeparator);
+			
+		}
+		System.out.println(sb.toString());
+		
+	}
 	
 
 }
