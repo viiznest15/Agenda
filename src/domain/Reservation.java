@@ -15,6 +15,14 @@ public class Reservation {
 		this.finalDat = finalDat;
 	}
 
+	public Reservation(Reservation reserv1) {
+		this.meetingName = reserv1.getMeetingName();
+		this.lounge = reserv1.getLounge();
+		this.days = reserv1.getDays();
+		this.hours = reserv1.getHours();
+		this.iniDat = reserv1.getIniDat();
+		this.finalDat = reserv1.getFinalDat();	}
+
 	public String getMeetingName() {
 		return meetingName;
 	}
