@@ -11,8 +11,8 @@ public class ServiceCodeLanguage {
 
 		Map<String, String> codeValueLanguage = new HashMap<>();
 
-		File fichero = new File("resources/internacional." + language);
-		try (Scanner sc = new Scanner(fichero)) {
+		File file = new File("resources/internacional." + language);
+		try (Scanner sc = new Scanner(file)) {
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
 				String[] parts = split(lin.replace(" ", ""));

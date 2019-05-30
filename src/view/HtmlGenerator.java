@@ -11,13 +11,15 @@ import java.util.Scanner;
 import services.subservices.ServiceCodeLanguage;
 
 public class HtmlGenerator {
-	String valueClosed;
+	private String valueClosed;
+	private int year;
 
-	public HtmlGenerator(String string) {
-		this.valueClosed = string;
+	public HtmlGenerator(String valueClosed, int year) {
+		this.valueClosed = valueClosed;
+		this.year = year;
 	}
 
-	public void escribirFichero(List<String[][]> semanas) {
+	public void writeFile(List<String[][]> weeks) {
 
 		File top = new File("resources/top.txt");
 
@@ -28,8 +30,8 @@ public class HtmlGenerator {
 				dos.writeBytes(lin);
 			}
 			initHtml(dos);
-			for (String[][] semana : semanas)
-				insertTable(dos, semana);
+			for (String[][] week : weeks)
+				insertTable(dos, week);
 			closeHtml(dos);
 
 		} catch (IOException e) {
@@ -37,60 +39,90 @@ public class HtmlGenerator {
 		}
 	}
 
-	private void closeHtml(DataOutputStream dos) throws IOException {
-		dos.writeBytes("</body>\r\n" + "</html>");
-	}
-
-	private void insertTable(DataOutputStream dos, String[][] peticiones) throws IOException {
-		dos.writeBytes("<table align=center width=90% border=1 cellpadding=2 cellspacing=0>\n");
-		dos.writeBytes("<tr style=\"text-align: center; background-color:#D6E7FA;\">\n");
+	private void insertTable(DataOutputStream dos, String[][] requests) throws IOException {
+		beginTable(dos);
 		String color = "";
-		for (int row = 0; row < peticiones.length; row++) {
+		for (int row = 0; row < requests.length; row++) {
 			if (row != 0 && row != 1)
-				dos.writeBytes("<tr style=\"text-align: center;\">\n");
+				setNormalRow(dos);
 			else if (row != 0)
-				dos.writeBytes("<tr style=\"text-align: center; background-color:#E8F1FE;\">\n");
-			for (int col = 0; col < peticiones[0].length; col++) {
-				if (row == 0) {
-					dos.writeBytes("<td style=\"border: 1px solid black;\">");
-				} else {
+				setDayRow(dos);
+			for (int col = 0; col < requests[0].length; col++) {
+				if (row == 0)
+					setFirstRow(dos);
+				else {
 					if (row == 1 || (col == 0 && row != 0))
-						dos.writeBytes("<td style=\"border: 1px solid black; background-color:#E8F1FE;\">");
+						setSecondRowFirstColumn(dos);
 					else {
-						if (closed(peticiones[row][col], valueClosed))
+						if (isClosed(requests[row][col], valueClosed))
 							color = "#b2aaaa;";
-						else if (reunion(peticiones[row][col]))
+						else if (isReunion(requests[row][col]))
 							color = "#fbfccf;";
 						else
 							color = "#DFFAC4;";
 						setColor(dos, color);
 					}
 				}
-				dos.writeBytes(peticiones[row][col]);
-				dos.writeBytes("</td>\n");
+				setData(dos, requests, row, col);
 			}
-			dos.writeBytes("</tr>\n");
+			closeRow(dos);
 		}
+		closeTable(dos);
+	}
+
+	private void closeRow(DataOutputStream dos) throws IOException {
+		dos.writeBytes("</tr>\n");
+	}
+
+	private void setData(DataOutputStream dos, String[][] peticiones, int row, int col) throws IOException {
+		dos.writeBytes(peticiones[row][col]);
+		dos.writeBytes("</td>\n");
+	}
+
+	private void closeTable(DataOutputStream dos) throws IOException {
 		dos.writeBytes("</table><br><br>\n");
 	}
 
+	private void setFirstRow(DataOutputStream dos) throws IOException {
+		dos.writeBytes("<th style=\"border: 1px solid black;\">");
+	}
+
+	private void setNormalRow(DataOutputStream dos) throws IOException {
+		dos.writeBytes("<tr style=\"text-align: center;\">\n");
+	}
+
+	private void setDayRow(DataOutputStream dos) throws IOException {
+		dos.writeBytes("<tr style=\"text-align: center; background-color:#E8F1FE;\">\n");
+	}
+
+	private void setSecondRowFirstColumn(DataOutputStream dos) throws IOException {
+		dos.writeBytes("<td style=\"border: 1px solid black; background-color:#E8F1FE;\">");
+	}
+
+	private void beginTable(DataOutputStream dos) throws IOException {
+		dos.writeBytes("<table align=center width=90% border=1 cellpadding=2 cellspacing=0>\n");
+		dos.writeBytes("<tr style=\"text-align: center; background-color:#D6E7FA;\">\n");
+	}
+
 	private void setColor(DataOutputStream dos, String color) throws IOException {
-		dos.writeBytes("<td style=\"border: 1px solid black;background-color:" + color + "\">");
+		dos.writeBytes("<td style=\"border: 1px solid black; background-color:" + color + "\">");
 	}
 
 	private void initHtml(DataOutputStream dos) throws IOException {
 		String titulo1 = "Sala1";
-		String titulo2 = "January 2008";
-
+		String titulo2 = "January " + year;
 		dos.writeBytes("<h1 align=center>\n" + titulo1 + "</h1>\n" + "<h2 align=center>" + titulo2 + "</h2>\n");
 	}
 
-	private boolean reunion(String field) {
-		return field.toLowerCase().substring(0, 1).equals("r");
+	private void closeHtml(DataOutputStream dos) throws IOException {
+		dos.writeBytes("</body>\r\n" + "</html>");
 	}
 
-	private boolean closed(String field, String valueClosed) {
+	private boolean isReunion(String field) {
+		return field.toLowerCase().contains("reunio");
+	}
+
+	private boolean isClosed(String field, String valueClosed) {
 		return field.equalsIgnoreCase(valueClosed);
 	}
-
 }

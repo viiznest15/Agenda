@@ -17,42 +17,42 @@ import domain.Reservation;
 
 public class ServiceReservCreation {
 
-	public Map<String, String> getReservFromFile(String nomFichero) {
+	public Map<String, String> getReservFromFile(String fileName) {
 
-		Map<String, String> reservas = Collections.emptyMap();
+		Map<String, String> reservations = Collections.emptyMap();
 
-		File fichero = new File(nomFichero);
+		File file = new File(fileName);
 
-		try (Scanner sc = new Scanner(fichero)) {
-			reservas = new HashMap<>();
+		try (Scanner sc = new Scanner(file)) {
+			reservations = new HashMap<>();
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
-				Reservation reserva = getReserv(lin);
-				reservas.put(reserva.getLounge(), "");
+				Reservation reserv = getReserv(lin);
+				reservations.put(reserv.getLounge(), "");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return reservas;
+		return reservations;
 	}
 
-	public List<Reservation> getReservListFromFile(String nomFichero) {
+	public List<Reservation> getReservListFromFile(String fileName) {
 
-		List<Reservation> reservas = Collections.emptyList();
+		List<Reservation> reservations = Collections.emptyList();
 
-		File fichero = new File(nomFichero);
+		File file = new File(fileName);
 
-		try (Scanner sc = new Scanner(fichero)) {
-			reservas = new ArrayList<>();
+		try (Scanner sc = new Scanner(file)) {
+			reservations = new ArrayList<>();
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
-				Reservation reserva = getReserv(lin);
-				reservas.add(reserva);
+				Reservation reserv = getReserv(lin);
+				reservations.add(reserv);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return reservas;
+		return reservations;
 	}
 
 	private Reservation getReserv(String lin) {

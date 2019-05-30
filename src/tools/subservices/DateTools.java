@@ -8,73 +8,68 @@ import java.util.Date;
 
 public class DateTools {
 
-	public static Date incFecha(Date date, int dias) {
+	public static Date incFecha(Date date, int days) {
 		long mseg = date.getTime();// ms transcurridos desde 1/1/70
-		long fechaFutura = mseg + (dias * 1000L * 60 * 60 * 24);
-		return new Date(fechaFutura);
+		long futureDate = mseg + (days * 1000L * 60 * 60 * 24);
+		return new Date(futureDate);
 	}
 
 	public static Date ints2Date(int d, int m, int a) {
-		String presuntaFecha = d + "/" + m + "/" + a;
-		return string2Date(presuntaFecha);
+		String date = d + "/" + m + "/" + a;
+		return string2Date(date);
 	}
 
 	public static Date ints2Date(int m, int a) {
-		String presuntaFecha = m + "/" + a;
-		return string2Date(presuntaFecha);
+		String date = 1 + "/" + m + "/" + a;
+		return string2Date(date);
 	}
 
 	public static String prettyPrint(Date date) {
 		return prettyPrint(date, "dd/MM/yyyy");
 	}
 
-	public static String prettyPrint(Date date, String patron) {
-		DateFormat df = new SimpleDateFormat(patron);
+	public static String prettyPrint(Date date, String pattern) {
+		DateFormat df = new SimpleDateFormat(pattern);
 		return df.format(date);
 	}
 
 	/**
 	 * Este metodo asume que el String proporcionado sigue el patron dd/MM/yyyy
 	 * 
-	 * @param presuntaFecha
+	 * @param date
 	 * @return Un objeto Date o lanza RuntimeException si no se cumple el formato
 	 *         dd/MM/yyyy
 	 */
-	public static Date string2Date(String presuntaFecha) {
-		return string2Date(presuntaFecha, "dd/MM/yyyy");
+	public static Date string2Date(String date) {
+		return string2Date(date, "dd/MM/yyyy");
 	}
 
 	/**
 	 * Este metodo no asume ningun patron de formato
 	 * 
-	 * @param presuntaFecha formatoFecha
+	 * @param date formatoFecha
 	 * @return Un objeto Date o lanza RuntimeException si no se cumple el formato
 	 *         dd/MM/yyyy
 	 */
-	public static Date string2Date(String presuntaFecha, String patron) {
-		DateFormat df = new SimpleDateFormat(patron);
+	public static Date string2Date(String date, String pattern) {
+		DateFormat df = new SimpleDateFormat(pattern);
 		try {
-			return df.parse(presuntaFecha);
+			return df.parse(date);
 		} catch (ParseException e) {
 			throw new RuntimeException("El string proporcionado, no se ajusta al patron indicado!");
 		}
 	}
 
-	public static String getDayDate(Date date) {
+	public static String getDayName(Date date) {
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("u"); // dia de la semana
-		String dia = (String) simpleDateformat.format(date);
-		return dia;
-	}
-
-	public static String getDayDate(int year, int month) { // Sobrecarga teniendo en cuenta "config.txt"
-		Date date = ints2Date(month, year);
-		return getDayDate(date);
+		String day = (String) simpleDateformat.format(date);
+		return day;
 	}
 
 	public static int getWeekDate(Date date) {
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
-		int dia = Integer.parseInt(simpleDateformat.format(date));
-		return dia;
+		int day = Integer.parseInt(simpleDateformat.format(date));
+		return day;
 	}
 
 	public static int getTotalWeekMonth(int month, int year) {
@@ -105,6 +100,7 @@ public class DateTools {
 		int month = cal.get(Calendar.MONTH) + 1;
 		return month;
 	}
+
 	public static int getYear(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
