@@ -21,15 +21,15 @@ import services.ServiceManagementLonge;
 import services.ServiceReservCreation;
 import tools.DateTools;
 
-public class Controller {
+public class OldController {
 	
-	//variables locales
-	private Map<String, List<Reservation>> peticiones = new HashMap<>();
-	private List<String[][]> allTables = new ArrayList<>();
-	private String[][] table = new String[26][8];
-	private Scheduler tablas = new Scheduler();
+	//variables de clase
 	private Config configuration;
 	public Interpreter itr;
+	private Map<String, List<Reservation>> peticiones = new HashMap<>();
+	private List<Scheduler> schedulerList = new ArrayList<>();
+	private String[][] table = new String[26][8];
+
 	
 	
 	//adquisicion de los servicios
@@ -38,26 +38,24 @@ public class Controller {
 	ServiceConfigCreation servConf = new ServiceConfigCreation();
 	ServiceCodeLanguage servCodeLan = new ServiceCodeLanguage();
 	
-	public void setPeticiones(){
-		peticiones = servSalas.getSalasConReservas("input/peticiones.txt");
-	}
 	
+	//INITIALAZIERS
 	public void setConfigFile(){
 		configuration = servConf.getConf("input/config.txt");
 	}
 	
-	public void setTablesProperties(){
+	public void setPeticiones(){
+		peticiones = servSalas.getSalasConReservas("input/peticiones.txt");
+	}
+	
+	public void setSchedulerProperties(){
 		tablas.setMonth(Month.of(configuration.getMonth()));
 		tablas.setYear(Year.of(configuration.getYear()));
 	}
 	
-	public void generateTables(){
-		tablas.generateScheduler(DateTools.
-				getTotalWeekMonth(configuration.getMonth(),
-						configuration.getYear()));
-	}
+
 	//Setting Interpreter
-	public void setInterpreter(Interpreter inter){
+	private void setInterpreter(Interpreter inter){
 		itr = inter;
 	}
 	

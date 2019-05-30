@@ -41,7 +41,7 @@ public class Program {
 		
 		//COMPROBANDO Q iNTERPRETER INICIALIZA LAS TABLAS-----------------------------
 				System.out.println("**********************************************");
-				Controller cntr = new Controller();
+				OldController cntr = new OldController();
 				cntr.setConfigFile();
 				cntr.configInterpreter(cntr.getConfigFile());
 				cntr.initializeTable();

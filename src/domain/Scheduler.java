@@ -2,30 +2,22 @@ package domain;
 
 import java.time.Month;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
-
-import services.TableFactory;
 
 public class Scheduler {
-	
-	private List<String[][]> Tables = new ArrayList<>();
-	private TableFactory factory = new TableFactory();
+	private String[][] table = new String[26][8];
 	private Year year;
 	private Month month;
 	
-	public void generateScheduler(int weeks){
-		for(int i = 0; i<= weeks; i++){
-			Tables.add(factory.createTable());
-		}
+	
+	
+	
+	
+	public String[][] getTable(){
+		return table;
 	}
 	
-	public List<String[][]> getTables() {
-		return Tables;
-	}
-	
-	public void setTables(List<String[][]> tables) {
-		Tables = tables;
+	public void setTable(String[][] table){
+		this.table = table;
 	}
 
 	public Year getYear() {
