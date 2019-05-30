@@ -1,12 +1,12 @@
 package tools;
 
-import static tools.nivelbajo.DateTools.*;
+import static tools.subservices.DateTools.*;
 
 import domain.Config;
 import domain.Reservation;
 
 public class Validator {
-	
+
 	public boolean validateMonth(Reservation reserv, Config config) {
 		return between(config.getMonth(), getMonth(reserv.getIniDat()), getMonth(reserv.getFinalDat()));
 	}
@@ -16,9 +16,6 @@ public class Validator {
 	}
 
 	public boolean between(int i, int minValueInclusive, int maxValueInclusive) {
-		if (i >= minValueInclusive && i <= maxValueInclusive)
-			return true;
-		else
-			return false;
+		return i >= minValueInclusive && i <= maxValueInclusive;
 	}
 }

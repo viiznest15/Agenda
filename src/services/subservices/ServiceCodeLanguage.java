@@ -1,4 +1,4 @@
-package services.nivelbajo;
+package services.subservices;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +15,7 @@ public class ServiceCodeLanguage {
 		try (Scanner sc = new Scanner(fichero)) {
 			while (sc.hasNextLine()) {
 				String lin = sc.nextLine();
-				String[] parts = split(lin);
+				String[] parts = split(lin.replace(" ", ""));
 				codeValueLanguage.put(parts[0], parts[1]);
 			}
 		} catch (FileNotFoundException e) {
@@ -24,7 +24,7 @@ public class ServiceCodeLanguage {
 		return codeValueLanguage;
 	}
 
-	public String[] split(String lin) {
+	private String[] split(String lin) {
 		String[] parts = lin.split(";");
 		return parts;
 	}

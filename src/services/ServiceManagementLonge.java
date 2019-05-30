@@ -7,7 +7,7 @@ import java.util.Map;
 
 import domain.Config;
 import domain.Reservation;
-import services.nivelbajo.ServiceReservCreation;
+import services.subservices.ServiceReservCreation;
 import tools.Validator;
 
 public class ServiceManagementLonge {
