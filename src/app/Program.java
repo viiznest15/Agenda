@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -14,7 +15,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 import domain.Config;
+import domain.Incidence;
 import domain.Reservation;
+import services.IncidenceManager;
 import services.ServiceManagementLonge;
 import services.subservices.ServiceCodeLanguage;
 import services.subservices.ServiceConfigCreation;
@@ -35,7 +38,7 @@ public class Program {
 
 		// IMPRESION DE RESERVAS POR SALA---------------------------------------------
 		Map<String, List<Reservation>> loungesList = servSalas.getLoungesWithReserv("input/peticions.txt", config);
-		loungesList.forEach((k, v) -> System.out.println("Key: " + k + ": \nValue: \n" + v));
+//		loungesList.forEach((k, v) -> System.out.println("Key: " + k + ": \nValue: \n" + v));
 		// ---------------------------------------------------------------------------
 
 		// CONFLICTOS DE HORAS Y FECHAS
@@ -89,13 +92,13 @@ public class Program {
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE ENTRADA----------------------------
 		Map<String, String> codeValueInputLanguage = servCodeLan.getLanguageCodes(config.getInputLanguage());
-		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+//		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE SALIDA-----------------------------
 		System.out.println("\n");
 		Map<String, String> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
-		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+//		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
 		String[][] semana1 = {
 				{ "Weak 44", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" },
@@ -154,9 +157,30 @@ public class Program {
 		List<String[][]> semanas = new ArrayList<>();
 		semanas.add(semana1);
 		semanas.add(semana2);
+
+		HtmlGenerator htmlGen = new HtmlGenerator(codeValueOutputLanguage.get("007"), config.getYear());
+//		htmlGen.writeFile(semanas);
+//		System.out.println(DateTools.getDayInWeek(new Date()));
+
+		Incidence inc1 = new Incidence("ReunioC", "Sala1", "10-13", "ReunioJava", LocalDate.now());
+		Incidence inc2 = new Incidence("ReunioC", "Sala1", "11-14", "ReunioJava", LocalDate.now());
+		Incidence inc3 = new Incidence("ReunioC", "Sala1", "10-12", "ReunioJava", LocalDate.now());
+		Incidence inc4 = new Incidence("ReunioJava", "Sala1", "10-11", "ReunioJava", LocalDate.now());
+		String date="25/09/2008";
+		int year = Integer.parseInt(date.substring(6));
+		int day = Integer.parseInt(date.substring(0, 2));
+		int month = Integer.parseInt(date.substring(3,5));
+		LocalDate fechita = LocalDate.now();
+		System.out.println(fechita.getDayOfWeek().getValue());
+//		System.out.println(fechita);
 		
-		HtmlGenerator htmlGen = new HtmlGenerator(codeValueOutputLanguage.get("007"),config.getYear());
-		htmlGen.writeFile(semanas);
-		System.out.println(DateTools.getDayInWeek(new Date()));
+		List<Incidence> incList = new ArrayList<>();
+		incList.add(inc1);
+		incList.add(inc2);
+		incList.add(inc3);
+		incList.add(inc4);
+		IncidenceManager im = new IncidenceManager();
+//		im.WriteLog(incList, config);
+
 	}
 }

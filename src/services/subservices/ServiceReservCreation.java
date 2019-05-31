@@ -1,10 +1,10 @@
 package services.subservices;
 
-
 import static tools.subservices.DateTools.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -63,13 +63,14 @@ public class ServiceReservCreation {
 
 		String meetingName = parts[MEETINGNAME];
 		String lounge = parts[LOUNGE];
-		
-		Date iniDat = string2Date(parts[INIDAT]);
-		Date finalDat = string2Date(parts[FINALDAT]);
-		
+
+		LocalDate iniDat = getLocalDateFromInts(parts[INIDAT]);
+		LocalDate finalDat = getLocalDateFromInts(parts[FINALDAT]);
+
 		String days = parts[DAYS];
 		String hours = parts[HOURS];
 
 		return new Reservation(meetingName, lounge, iniDat, finalDat, days, hours);
 	}
+
 }

@@ -1,12 +1,12 @@
 package domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Reservation {
 	private String meetingName, lounge, days, hours;
-	private Date iniDat, finalDat;
+	private LocalDate iniDat, finalDat;
 
-	public Reservation(String meetingName, String lounge, Date iniDat, Date finalDat, String days, String hours) {
+	public Reservation(String meetingName, String lounge, LocalDate iniDat, LocalDate finalDat, String days, String hours) {
 		this.meetingName = meetingName;
 		this.lounge = lounge;
 		this.days = days;
@@ -39,11 +39,11 @@ public class Reservation {
 		return hours;
 	}
 
-	public Date getIniDat() {
+	public LocalDate getIniDat() {
 		return iniDat;
 	}
 
-	public Date getFinalDat() {
+	public LocalDate getFinalDat() {
 		return finalDat;
 	}
 
@@ -63,11 +63,11 @@ public class Reservation {
 		this.hours = hours;
 	}
 
-	public void setIniDat(Date iniDat) {
+	public void setIniDat(LocalDate iniDat) {
 		this.iniDat = iniDat;
 	}
 
-	public void setFinalDat(Date finalDat) {
+	public void setFinalDat(LocalDate finalDat) {
 		this.finalDat = finalDat;
 	}
 

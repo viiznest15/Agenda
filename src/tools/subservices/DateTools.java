@@ -3,6 +3,7 @@ package tools.subservices;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,17 +16,17 @@ public class DateTools {
 	}
 
 	public static Date ints2Date(int d, int m, int a) {
-		String date = d + "/" + m + "/" + a;
+		String date = a + "/" + m + "/" + d;
 		return string2Date(date);
 	}
 
 	public static Date ints2Date(int m, int a) {
-		String date = 1 + "/" + m + "/" + a;
+		String date = a + "/" + m + "/" + 1;
 		return string2Date(date);
 	}
 
 	public static String prettyPrint(Date date) {
-		return prettyPrint(date, "dd/MM/yyyy");
+		return prettyPrint(date, "yyyy/MM/dd");
 	}
 
 	public static String prettyPrint(Date date, String pattern) {
@@ -41,7 +42,7 @@ public class DateTools {
 	 *         dd/MM/yyyy
 	 */
 	public static Date string2Date(String date) {
-		return string2Date(date, "dd/MM/yyyy");
+		return string2Date(date, "yyyy/MM/dd");
 	}
 
 	/**
@@ -71,12 +72,10 @@ public class DateTools {
 		int day = Integer.parseInt(simpleDateformat.format(date));
 		return day;
 	}
-//Este metodo nos ayuda a calcular la posicion de los dias en la matriz
-	public static int getDayInWeek(Date date) {
-//		Date date = ints2Date(1, month, year);
-		Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);        
-		return calendar.get(Calendar.DAY_OF_WEEK-1);
+
+	// Este metodo nos ayuda a calcular la posicion de los dias en la matriz
+	public static int getDayInWeek(LocalDate date) {
+		return date.getDayOfWeek().getValue();
 	}
 
 	// necesario para tamaño matriz
@@ -102,19 +101,11 @@ public class DateTools {
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
-	// Se utiliza para la clase Validator, para las fechas que no son del mes de
-	// config
-	public static int getMonth(Date date) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int month = cal.get(Calendar.MONTH) + 1;
-		return month;
-	}
-
-	public static int getYear(Date date) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int year = cal.get(Calendar.YEAR) + 1;
-		return year;
+	public static LocalDate getLocalDateFromInts(String date) {
+		int year = Integer.parseInt((date).substring(6));
+		int day = Integer.parseInt((date).substring(0, 2));
+		int month = Integer.parseInt((date).substring(3, 5));
+		LocalDate localDate = LocalDate.of(year, month, day);
+		return localDate;
 	}
 }
