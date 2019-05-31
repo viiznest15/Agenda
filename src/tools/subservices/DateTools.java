@@ -67,7 +67,7 @@ public class DateTools {
 		return day;
 	}
 
-	public static int getWeekOfTheYear(Date date) {
+	public static int getWeekOfTheYear(LocalDate date) {
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
 		int day = Integer.parseInt(simpleDateformat.format(date));
 		return day;
@@ -95,10 +95,8 @@ public class DateTools {
 	}
 
 	public static int getLastDayMonth(int year, int month) {
-		Date date = ints2Date(1, month, year);
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		LocalDate fechita = LocalDate.of(year,month,1);		
+		return fechita.lengthOfMonth();
 	}
 
 	public static LocalDate getLocalDateFromInts(String date) {
