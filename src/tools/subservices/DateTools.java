@@ -66,12 +66,20 @@ public class DateTools {
 		return day;
 	}
 
-	public static int getWeekDate(Date date) {
+	public static int getWeekOfTheYear(Date date) {
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
 		int day = Integer.parseInt(simpleDateformat.format(date));
 		return day;
 	}
+//Este metodo nos ayuda a calcular la posicion de los dias en la matriz
+	public static int getDayInWeek(Date date) {
+//		Date date = ints2Date(1, month, year);
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);        
+		return calendar.get(Calendar.DAY_OF_WEEK-1);
+	}
 
+	// necesario para tamaño matriz
 	public static int getTotalWeekMonth(int month, int year) {
 
 		Date date = ints2Date(1, month, year);
@@ -94,6 +102,8 @@ public class DateTools {
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
+	// Se utiliza para la clase Validator, para las fechas que no son del mes de
+	// config
 	public static int getMonth(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);

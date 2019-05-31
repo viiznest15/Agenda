@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
 
 import domain.Config;
 import domain.Reservation;
@@ -37,7 +35,7 @@ public class Program {
 
 		// IMPRESION DE RESERVAS POR SALA---------------------------------------------
 		Map<String, List<Reservation>> loungesList = servSalas.getLoungesWithReserv("input/peticions.txt", config);
-//		loungesList.forEach((k, v) -> System.out.println("Key: " + k + ": \nValue: \n" + v));
+		loungesList.forEach((k, v) -> System.out.println("Key: " + k + ": \nValue: \n" + v));
 		// ---------------------------------------------------------------------------
 
 		// CONFLICTOS DE HORAS Y FECHAS
@@ -91,13 +89,13 @@ public class Program {
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE ENTRADA----------------------------
 		Map<String, String> codeValueInputLanguage = servCodeLan.getLanguageCodes(config.getInputLanguage());
-//		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE SALIDA-----------------------------
 		System.out.println("\n");
 		Map<String, String> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
-//		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
 		String[][] semana1 = {
 				{ "Weak 44", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" },
@@ -159,6 +157,6 @@ public class Program {
 		
 		HtmlGenerator htmlGen = new HtmlGenerator(codeValueOutputLanguage.get("007"),config.getYear());
 		htmlGen.writeFile(semanas);
-
+		System.out.println(DateTools.getDayInWeek(new Date()));
 	}
 }
