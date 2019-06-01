@@ -13,6 +13,7 @@ public class Scheduler {
 	public Scheduler(Year year, Month month, int weekCounter){
 		this.year = year;
 		this.month = month;
+		this.weekCounter = weekCounter;
 		
 	}
 	
@@ -66,6 +67,7 @@ public class Scheduler {
 			
 		}
 		System.out.println(sb.toString());
+		System.out.println(getWeekCounter());
 		
 	}
 }

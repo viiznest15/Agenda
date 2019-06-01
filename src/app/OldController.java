@@ -13,12 +13,11 @@ import domain.Interpreter;
 import domain.Reservation;
 import domain.Scheduler;
 import domain.SpanishInterpreter;
-import services.ServiceCodeLanguage;
-import services.ServiceConfigCreation;
+import services.subservices.ServiceCodeLanguage;
+import services.subservices.ServiceConfigCreation;
 import services.ServiceManagementLonge;
-import services.ServiceReservCreation;
 import services.TableFactory;
-import tools.DateTools;
+import tools.subservices.DateTools;
 
 public class OldController {
 	
@@ -33,7 +32,6 @@ public class OldController {
 	
 	
 	//adquisicion de los servicios
-	ServiceReservCreation servReserv = new ServiceReservCreation();//not used
 	ServiceManagementLonge servSalas = new ServiceManagementLonge();
 	ServiceConfigCreation servConf = new ServiceConfigCreation();
 	ServiceCodeLanguage servCodeLan = new ServiceCodeLanguage();
@@ -45,7 +43,7 @@ public class OldController {
 	}
 	
 	public void setPetitions(){
-		petitions = servSalas.getSalasConReservas("input/peticiones.txt", configuration);
+		petitions = servSalas.getLoungesWithReserv("input/peticions.txt", configuration);
 	}
 	
 	public void setSchedulerList(TableFactory factory){
@@ -106,8 +104,9 @@ public class OldController {
 		
 	}
 	
-	public void schedulersToSring(){
+	public void schedulersToString(){
 		schedulerList.forEach(scheduler -> scheduler.tableToString());
+		System.out.println("******************************************");
 	}
 	
 

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -75,11 +76,18 @@ public class DateTools {
 		return day;
 	}
 
-	public static int getWeekOfTheYear(LocalDate date) {
+	public static int getWeekOfTheYear(LocalDate date) {//WARNING THIS METHOD CAUSE IllegalArgumentException
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
 		int day = Integer.parseInt(simpleDateformat.format(date));
 		return day;
 	}
+	
+	public static int getWeekOfTheYear(Date date) {
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
+		int day = Integer.parseInt(simpleDateformat.format(date));
+		return day;
+	}
+
 
 	// Este metodo nos ayuda a calcular la posicion de los dias en la matriz
 	public static int getDayInWeek(LocalDate date) {
@@ -89,7 +97,7 @@ public class DateTools {
 	// necesario para tamaño matriz
 	public static int getTotalWeekMonth(int month, int year) {
 
-		Date date = ints2Date(1, month, year);
+		Date date = ints2Date(month, year, 1);
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
@@ -118,5 +126,14 @@ public class DateTools {
 	public static LocalDate getFirstDayOfNextWeek(LocalDate date) {
 		int dias = 7 - (date.getDayOfWeek().getValue() - 1);
 		return date = date.plusDays(dias);
+	}
+	
+	public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+	public static Date convertToDateViaInstant(LocalDate dateToConvert) {
+	    return java.util.Date.from(dateToConvert.atStartOfDay()
+	      .atZone(ZoneId.systemDefault())
+	      .toInstant());
 	}
 }
