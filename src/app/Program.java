@@ -49,10 +49,10 @@ public class Program {
 //				
 //				cntr.tableToString();
 		
-		OldController cntr = new OldController();
-		cntr.setConfigFile();
-		cntr.setSchedulerList(cntr.getFactory());
-		cntr.schedulersToSring();
+//		OldController cntr = new OldController();
+//		cntr.setConfigFile();
+//		cntr.setSchedulerList(cntr.getFactory());
+//		cntr.schedulersToSring();
 		
 	}
 }

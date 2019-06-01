@@ -16,6 +16,15 @@ public class Scheduler {
 		
 	}
 	
+	//final initializers for table
+	public void setDaysInTable(){
+		
+	}
+	
+	//operators for table
+	
+	
+	
 	public String[][] getTable(){
 		return table;
 	}

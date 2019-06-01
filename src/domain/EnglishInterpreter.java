@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.Map;
 
 public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
@@ -28,9 +29,8 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 	}
 
 	@Override
-	public void write() {
+	public void write(List<Reservation> petitions, Scheduler table) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

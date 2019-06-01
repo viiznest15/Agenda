@@ -45,7 +45,7 @@ public class OldController {
 	}
 	
 	public void setPetitions(){
-		petitions = servSalas.getSalasConReservas("input/peticiones.txt");
+		petitions = servSalas.getSalasConReservas("input/peticiones.txt", configuration);
 	}
 	
 	public void setSchedulerList(TableFactory factory){
