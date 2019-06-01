@@ -18,6 +18,7 @@ public class DateTools {
 		String presuntaFecha = d + "/" + m + "/" + a;
 		return string2Date(presuntaFecha);
 	}
+
 	public static Date ints2Date(int m, int a) {
 		String presuntaFecha = m + "/" + a;
 		return string2Date(presuntaFecha);
@@ -71,7 +72,7 @@ public class DateTools {
 	}
 
 	public static int getWeekDate(Date fecha) {
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana a�o
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana anyo
 		int dia = Integer.parseInt(simpleDateformat.format(fecha));
 		return dia;
 	}
@@ -96,5 +97,12 @@ public class DateTools {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(fecha);
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+
+	public static int getMonth(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int mes = cal.get(Calendar.MONTH) + 1;
+		return mes;
 	}
 }
