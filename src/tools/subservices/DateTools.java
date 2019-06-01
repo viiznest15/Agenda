@@ -15,13 +15,21 @@ public class DateTools {
 		return new Date(futureDate);
 	}
 
-	public static Date ints2Date(int d, int m, int a) {
-		String date = a + "/" + m + "/" + d;
-		return string2Date(date);
+	public static LocalDate ints2LocalDate(int d, int m, int a) {
+		return (LocalDate.of(a, m, d));
+	}
+
+	public static LocalDate ints2LocalDate(int m, int a) {
+		return ints2LocalDate(1, m, a);
 	}
 
 	public static Date ints2Date(int m, int a) {
 		String date = a + "/" + m + "/" + 1;
+		return string2Date(date);
+	}
+
+	public static Date ints2Date(int m, int a, int d) {
+		String date = a + "/" + m + "/" + d;
 		return string2Date(date);
 	}
 
@@ -95,7 +103,7 @@ public class DateTools {
 	}
 
 	public static int getLastDayMonth(int year, int month) {
-		LocalDate fechita = LocalDate.of(year,month,1);		
+		LocalDate fechita = LocalDate.of(year, month, 1);
 		return fechita.lengthOfMonth();
 	}
 
@@ -105,5 +113,10 @@ public class DateTools {
 		int month = Integer.parseInt((date).substring(3, 5));
 		LocalDate localDate = LocalDate.of(year, month, day);
 		return localDate;
+	}
+
+	public static LocalDate getFirstDayOfNextWeek(LocalDate date) {
+		int dias = 7 - (date.getDayOfWeek().getValue() - 1);
+		return date = date.plusDays(dias);
 	}
 }
