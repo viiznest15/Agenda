@@ -1,4 +1,4 @@
-package services;
+package services.subservices;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,9 +8,9 @@ import domain.Config;
 
 public class ServiceConfigCreation {
 
-	public Config getConf(String nomFichero) {
+	public Config getConf(String fileName) {
 
-		String lin = getInfoConf(nomFichero);
+		String lin = getInfoConf(fileName);
 		final byte YEAR = 0, MONTH = 1, INPUTLANGUAGE = 2, OUTPUTLANGUAGE = 3;
 
 		String[] parts = lin.split(" ");
@@ -24,10 +24,10 @@ public class ServiceConfigCreation {
 		return new Config(inputLanguage, outputLanguage, year, month);
 	}
 
-	private String getInfoConf(String nomFichero) {
-		File fichero = new File(nomFichero);
+	private String getInfoConf(String fileName) {
+		File file = new File(fileName);
 		String lin = "";
-		try (Scanner sc = new Scanner(fichero)) {
+		try (Scanner sc = new Scanner(file)) {
 			while (sc.hasNextLine()) {
 				lin += sc.nextLine() + " ";
 			}
