@@ -1,7 +1,5 @@
 package app;
 
-import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +17,7 @@ import services.ServiceCodeLanguage;
 import services.ServiceConfigCreation;
 import services.ServiceManagementLonge;
 import services.ServiceReservCreation;
+import services.TableFactory;
 import tools.DateTools;
 
 public class OldController {
@@ -26,9 +25,10 @@ public class OldController {
 	//variables de clase
 	private Config configuration;
 	public Interpreter itr;
-	private Map<String, List<Reservation>> peticiones = new HashMap<>();
+	private Map<String, List<Reservation>> petitions = new HashMap<>();
 	private List<Scheduler> schedulerList = new ArrayList<>();
 	private String[][] table = new String[26][8];
+	private TableFactory factory = new TableFactory();
 
 	
 	
@@ -44,14 +44,21 @@ public class OldController {
 		configuration = servConf.getConf("input/config.txt");
 	}
 	
-	public void setPeticiones(){
-		peticiones = servSalas.getSalasConReservas("input/peticiones.txt");
+	public void setPetitions(){
+		petitions = servSalas.getSalasConReservas("input/peticiones.txt");
 	}
 	
-	public void setSchedulerProperties(){
-		tablas.setMonth(Month.of(configuration.getMonth()));
-		tablas.setYear(Year.of(configuration.getYear()));
+	public void setSchedulerList(TableFactory factory){
+		factory.setSchedulers(DateTools.getTotalWeekMonth(configuration.getMonth(), 
+				configuration.getYear()),getConfigFile());
+		
+		schedulerList = factory.getSchedulerList();
 	}
+	
+//	public void setSchedulerProperties(){
+//		tablas.setMonth(Month.of(configuration.getMonth()));
+//		tablas.setYear(Year.of(configuration.getYear()));
+//	}
 	
 
 	//Setting Interpreter
@@ -69,6 +76,10 @@ public class OldController {
 		else{
 			setInterpreter(new CatalanInterpreter(servCodeLan.getLanguageCodes("CAT")));
 		}
+	}
+	
+	public TableFactory getFactory(){
+		return factory;
 	}
 	
 	public Config getConfigFile(){
@@ -93,6 +104,10 @@ public class OldController {
 		}
 		System.out.println(sb.toString());
 		
+	}
+	
+	public void schedulersToSring(){
+		schedulerList.forEach(scheduler -> scheduler.tableToString());
 	}
 	
 

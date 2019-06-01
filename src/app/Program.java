@@ -40,13 +40,19 @@ public class Program {
 		// ---------------------------------------------------------------------------
 		
 		//COMPROBANDO Q iNTERPRETER INICIALIZA LAS TABLAS-----------------------------
-				System.out.println("**********************************************");
-				OldController cntr = new OldController();
-				cntr.setConfigFile();
-				cntr.configInterpreter(cntr.getConfigFile());
-				cntr.initializeTable();
-				
-				cntr.tableToString();
+//				System.out.println("**********************************************");
+//				OldController cntr = new OldController();
+//				cntr.setConfigFile();
+//				cntr.configInterpreter(cntr.getConfigFile());
+//				cntr.initializeTable();
+//				
+//				cntr.tableToString();
+		
+		OldController cntr = new OldController();
+		cntr.setConfigFile();
+		cntr.setSchedulerList(cntr.getFactory());
+		cntr.schedulersToSring();
+		
 	}
 
 }
