@@ -1,8 +1,12 @@
 package domain;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.Arrays;
+import java.util.Date;
+
+import static tools.subservices.DateTools.*;
 
 public class Scheduler {
 	private String[][] table = new String[26][8];
@@ -17,14 +21,118 @@ public class Scheduler {
 		
 	}
 	
-	//final initializers for table
+	//final initializers for table ****************************************************
+	
 	public void setDaysInTable(){
+		LocalDate date = ints2LocalDate(month.getValue(),year.getValue());
+		Date sameDate = convertToDateViaInstant(date);
+		
+		while(getWeekOfTheYear(sameDate) != weekCounter){
+			date = getFirstDayOfNextWeek(date);
+			sameDate = convertToDateViaInstant(date);
+		}
+		
+		int days = date.getDayOfMonth();
+		if(getWeekOfTheYear(sameDate) == weekCounter){
+			int x = getDayInWeek(date);
+			for(int i = x; i < table[1].length; i++ ){
+				if(days <= getLastDayMonth(year.getValue(),month.getValue())){
+					table[1][i] = String.valueOf(days);
+					days++;
+				}
+				else{
+					break;
+				}
+			}
+		}
+	}
+	
+	//operators for table ********************************************************************
+	
+	public void populateTableWithClosed(Reservation reserve, int[]days){
+		LocalDate initDate = reserve.getIniDat();
+		LocalDate finalDate = reserve.getFinalDat();
+		
+		Date initDate2 = convertToDateViaInstant(initDate);
+		Date finalDate2 = convertToDateViaInstant(finalDate);
+		
+		while(getWeekOfTheYear(initDate2) != weekCounter){
+			initDate = getFirstDayOfNextWeek(initDate);
+			initDate2 = convertToDateViaInstant(initDate);
+		}
+		
+		int[] hoursRange = evaluateReserv(reserve);
+		
+		if(getWeekOfTheYear(initDate2) == weekCounter){
+			for(int i = 0; i < hoursRange.length; i++){
+				
+			}
+		}
+	}
+	
+	public void populateTableWithMeeting(Reservation reserve, int[]days){
+		LocalDate initDate = reserve.getIniDat();
+		LocalDate finalDate = reserve.getFinalDat();
+		
+		Date initDate2 = convertToDateViaInstant(initDate);
+		Date finalDate2 = convertToDateViaInstant(finalDate);
+		
+		while(getWeekOfTheYear(initDate2) != weekCounter){
+			initDate = getFirstDayOfNextWeek(initDate);
+			initDate2 = convertToDateViaInstant(initDate);
+		}
+		
+		
+		
+		if(getWeekOfTheYear(initDate2) == weekCounter){
+//			for(int i = 0; i < table[])
+		}
+		
+		
 		
 	}
 	
-	//operators for table
+	private int[] evaluateReserv(Reservation reserve){
+		
+		if(reserve.getMeetingName().equals("Tancat") | 
+				reserve.getMeetingName().equals("Cerrado") | 
+				reserve.getMeetingName().equals("Closed")){
+			
+						return getClosedRange(reserve);
+		}else{
+						return getHoursRange(reserve);
+		}
+		
+	}
 	
+	private int[] getClosedRange(Reservation reserve){
+		StringBuilder sb = new StringBuilder();
+		sb.append(reserve.getHours());
+		sb.replace(sb.indexOf("_"), sb.indexOf("_"), "-");
+		String str = sb.toString();
+		String[] rangeStr = str.split("-");
+		
+		int[] range = new int[4];
+		
+		for(int i = 0; i < rangeStr.length; i++){
+			range[i]=(Integer.parseInt(rangeStr[i]) + 2);
+		}
+		
+		return range;
+	}
 	
+	private int[] getHoursRange(Reservation reserve){
+		String[] str = reserve.getHours().split("-");
+		int[] range = new int[2];
+		
+		for(int i = 0; i < str.length; i++){
+			range[i]=(Integer.parseInt(str[i]) + 2);
+		}
+		
+		return range;
+	}
+	
+	//*************************************************************************
 	
 	public String[][] getTable(){
 		return table;
@@ -67,7 +175,7 @@ public class Scheduler {
 			
 		}
 		System.out.println(sb.toString());
-		System.out.println(getWeekCounter());
+//		System.out.println(getWeekCounter());
 		
 	}
 }

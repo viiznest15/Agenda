@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import domain.CatalanInterpreter;
@@ -76,16 +77,18 @@ public class OldController {
 		}
 	}
 	
+	public void initializeTables(){
+		for(Scheduler s : schedulerList){
+			itr.initialize(s);
+		}
+	}
+	
 	public TableFactory getFactory(){
 		return factory;
 	}
 	
 	public Config getConfigFile(){
 		return configuration;
-	}
-	
-	public void initializeTable(){
-		table =  itr.initialize(table);
 	}
 	
 	public String[][] getTable(){
@@ -102,6 +105,10 @@ public class OldController {
 		}
 		System.out.println(sb.toString());
 		
+	}
+	
+	public List<Scheduler> getSchedulerList(){
+		return schedulerList;
 	}
 	
 	public void schedulersToString(){

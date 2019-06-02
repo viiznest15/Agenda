@@ -1,11 +1,14 @@
 package domain;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Interpreter {
 	
-	public String[][] initialize(String[][] table);
+	public Scheduler initialize(Scheduler table);
 	
-	public void write(List<Reservation> petitions, Scheduler table);
+	public void write(List<Reservation> petitions, List<Scheduler> tables);
+	
+//	public void exchange();
 
 }
