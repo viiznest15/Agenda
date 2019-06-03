@@ -17,25 +17,6 @@ import domain.Reservation;
 
 public class ServiceReservCreation {
 
-	public Map<String, String> getReservFromFile(String fileName) {
-
-		Map<String, String> reservations = Collections.emptyMap();
-
-		File file = new File(fileName);
-
-		try (Scanner sc = new Scanner(file)) {
-			reservations = new HashMap<>();
-			while (sc.hasNextLine()) {
-				String lin = sc.nextLine();
-				Reservation reserv = getReserv(lin);
-				reservations.put(reserv.getLounge(), "");
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return reservations;
-	}
-
 	public List<Reservation> getReservListFromFile(String fileName) {
 
 		List<Reservation> reservations = Collections.emptyList();
