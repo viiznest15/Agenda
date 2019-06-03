@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import domain.Config;
 import domain.Reservation;
@@ -15,16 +17,12 @@ public class ServiceManagementLonge {
 	public Map<String, List<Reservation>> getLoungesWithReserv(String fileName, Config config) {
 
 		ServiceReservCreation serv = new ServiceReservCreation();
-
-		// El map nos guarda los distintos valores de sala del fichero
-		Map<String, String> diffLounges = serv.getReservFromFile(fileName);
-
-		// La lista guarda esos valores de forma mas simple, teniendo asi un campo por
-		// sala
-		List<String> loungesList = new ArrayList<String>(diffLounges.keySet());
-
+		
 		// Cargamos en reservasList todas las reservas del fichero
 		List<Reservation> reservList = serv.getReservListFromFile(fileName);
+		
+		// Uso de streams para ver las diferentes salas que hay en las peticiones
+        List<String> loungesList = reservList.stream().map(reserv -> reserv.getLounge()).distinct().collect(Collectors.toList());
 
 		// lista temporal para gestionar las listas dentro del map
 		List<Reservation> temp = new ArrayList<Reservation>();
