@@ -37,8 +37,12 @@ public abstract class AbsInterpreter {
 		
 
 	}
-
-
+	
+	public abstract List<Reservation> splitReserv(List<Reservation> petition, 
+			String identifier, Boolean marker);
+	
+	public abstract int[] maskConversion(String days);
+	
 	public String getTitle() {
 		return schedule;
 	}

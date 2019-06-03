@@ -63,9 +63,16 @@ public class Scheduler {
 		
 		int[] hoursRange = evaluateReserv(reserve);
 		
+		int y = 0;
+		int x = 0;
+		
 		if(getWeekOfTheYear(initDate2) == weekCounter){
-			for(int i = 0; i < hoursRange.length; i++){
-				
+			for(int i = 2; i < table.length ; i++){
+				for(int j = 1; j < table[i].length; j++){
+					if(table[i] == hoursRange[y] && table[][j] == days[x]){
+						
+					}
+				}
 			}
 		}
 	}

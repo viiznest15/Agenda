@@ -49,6 +49,7 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 		
 	}
 	
+	@Override
 	public List<Reservation> splitReserv(List<Reservation> petition, String identifier, Boolean marker){
 		List<Reservation> listReserv = new ArrayList<>();
 		if(marker == true){
@@ -68,6 +69,7 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 		return listReserv;
 	}
 	
+	@Override
 	public int[] maskConversion(String days){
 		char[] mask = days.toCharArray();
 		int[] result = new int[6];
@@ -97,23 +99,4 @@ public class EnglishInterpreter extends AbsInterpreter implements Interpreter {
 		
 		return result;
 	}
-	
-//	public int dayRange(Reservation petition){
-//		
-//		int initDate = petition.getIniDat().getDayOfMonth();
-//		int finalDate = petition.getFinalDat().getDayOfMonth();
-//		
-//		
-//		
-//		return null;
-//	}
-
-	
-	
-	
-	
-	
-
-	
-	
 }
