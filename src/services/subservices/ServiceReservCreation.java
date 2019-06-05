@@ -1,6 +1,6 @@
 package services.subservices;
 
-import static tools.subservices.DateTools.*;
+import static tools.subtools.DateTools.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +49,7 @@ public class ServiceReservCreation {
 		LocalDate finalDat = getLocalDateFromInts(parts[FINALDAT]);
 
 		String days = parts[DAYS];
-		String hours = parts[HOURS];
+		String[] hours = parts[HOURS].split("_");
 
 		return new Reservation(meetingName, lounge, iniDat, finalDat, days, hours);
 	}

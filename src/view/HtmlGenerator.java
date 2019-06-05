@@ -8,18 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import domain.Table;
 import services.subservices.ServiceCodeLanguage;
 
 public class HtmlGenerator {
-	private String valueClosed;
+	private String[] valueClosed;
 	private int year;
 
-	public HtmlGenerator(String valueClosed, int year) {
-		this.valueClosed = valueClosed;
+	public HtmlGenerator(String[] strings, int year) {
+		this.valueClosed = strings;
 		this.year = year;
 	}
 
-	public void writeFile(List<String[][]> weeks) {
+	public void writeFile(List<Table> tables) {
 
 		File top = new File("resources/top.txt");
 
@@ -30,8 +31,8 @@ public class HtmlGenerator {
 				dos.writeBytes(lin);
 			}
 			initHtml(dos);
-			for (String[][] week : weeks)
-				insertTable(dos, week);
+			for (Table week : tables)
+				insertTable(dos, week.getTable());
 			closeHtml(dos);
 
 		} catch (IOException e) {
@@ -75,8 +76,10 @@ public class HtmlGenerator {
 	}
 
 	private void setData(DataOutputStream dos, String[][] peticiones, int row, int col) throws IOException {
-		dos.writeBytes(peticiones[row][col]);
-		dos.writeBytes("</td>\n");
+		if (peticiones[row][col] != null)
+			dos.writeBytes(peticiones[row][col]);
+		else
+			dos.writeBytes("</td>\n");
 	}
 
 	private void closeTable(DataOutputStream dos) throws IOException {
@@ -119,10 +122,16 @@ public class HtmlGenerator {
 	}
 
 	private boolean isReunion(String field) {
-		return field.toLowerCase().contains("reunio");
+		if (field == null)
+			return false;
+		else
+			return field.toLowerCase().contains("reunio");
 	}
 
-	private boolean isClosed(String field, String valueClosed) {
-		return field.equalsIgnoreCase(valueClosed);
+	private boolean isClosed(String field, String[] valueClosed2) {
+		if (field == null)
+			return false;
+		else
+			return field.equalsIgnoreCase(valueClosed2[0]);
 	}
 }

@@ -12,16 +12,19 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import domain.Config;
 import domain.Incidence;
 import domain.Reservation;
+import domain.Table;
 import services.IncidenceManager;
 import services.ServiceManagementLonge;
+import services.TableGenerator;
 import services.subservices.ServiceCodeLanguage;
 import services.subservices.ServiceConfigCreation;
-import tools.subservices.DateTools;
+import tools.subtools.DateTools;
 import view.HtmlGenerator;
 
 public class Program {
@@ -44,7 +47,7 @@ public class Program {
 		// CONFLICTOS DE HORAS Y FECHAS
 		// preferencia a los cerrados, primera comprobacion entre closeds
 		// sumar las reservas que se puedan juntar y ampliar
-		List<Reservation> incidencies = new ArrayList<>();
+//		List<Reservation> incidencies = new ArrayList<>();
 
 //		for (List<Reservation> listReserv : loungesList.values()) {
 //			Iterator<Reservation> it = listReserv.iterator();
@@ -91,15 +94,32 @@ public class Program {
 		// ---------------------------------------------------------------------------
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE ENTRADA----------------------------
-		Map<String, String> codeValueInputLanguage = servCodeLan.getLanguageCodes(config.getInputLanguage());
-//		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+		Map<String, String[]> codeValueInputLanguage = servCodeLan.getLanguageCodes(config.getInputLanguage());
+
+//		for (Entry<String, String[]> entry : codeValueInputLanguage.entrySet()) {
+//			for (String x : entry.getValue())
+//				System.out.println(entry.getKey() + "=" + x);
+//		}
+
+//		codeValueInputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v.toString()));
 		// ---------------------------------------------------------------------------
 
 		// IMPRESION DE LOS CODIGOS DE LENGUAJE DE SALIDA-----------------------------
 		System.out.println("\n");
-		Map<String, String> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
+		Map<String, String[]> codeValueOutputLanguage = servCodeLan.getLanguageCodes(config.getOutputLanguage());
+//		for (Entry<String, String[]> entry : codeValueOutputLanguage.entrySet()) {
+//			for (String x : entry.getValue())
+//				System.out.println(entry.getKey() + "=" + x);
+//		}
 //		codeValueOutputLanguage.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 		// ---------------------------------------------------------------------------
-
+		TableGenerator tg = new TableGenerator();
+		List<Table> tables = tg.initTables();
+//		for (Table x : tables) {
+//			System.out.println(x.toString());
+//		}
+		HtmlGenerator htmlGen = new HtmlGenerator(codeValueOutputLanguage.get("007"), config.getYear());
+		htmlGen.writeFile(tables);
+//		System.out.println(DateTools.getDayInWeek(new Date()));
 	}
 }

@@ -3,10 +3,11 @@ package domain;
 import java.time.LocalDate;
 
 public class Reservation {
-	private String meetingName, lounge, days, hours;
+	private String meetingName, lounge, days;
+	private String[] hours;
 	private LocalDate iniDat, finalDat;
 
-	public Reservation(String meetingName, String lounge, LocalDate iniDat, LocalDate finalDat, String days, String hours) {
+	public Reservation(String meetingName, String lounge, LocalDate iniDat, LocalDate finalDat, String days, String[] hours) {
 		this.meetingName = meetingName;
 		this.lounge = lounge;
 		this.days = days;
@@ -35,7 +36,7 @@ public class Reservation {
 		return days;
 	}
 
-	public String getHours() {
+	public String[] getHours() {
 		return hours;
 	}
 
@@ -59,7 +60,7 @@ public class Reservation {
 		this.days = days;
 	}
 
-	public void setHours(String hours) {
+	public void setHours(String[] hours) {
 		this.hours = hours;
 	}
 

@@ -1,4 +1,4 @@
-package tools.subservices;
+package tools.subtools;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -76,18 +76,17 @@ public class DateTools {
 		return day;
 	}
 
-	public static int getWeekOfTheYear(LocalDate date) {//WARNING THIS METHOD CAUSE IllegalArgumentException
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
-		int day = Integer.parseInt(simpleDateformat.format(date));
-		return day;
-	}
-	
-	public static int getWeekOfTheYear(Date date) {
+	public static int getWeekOfTheYear(LocalDate date) {// WARNING THIS METHOD CAUSE IllegalArgumentException
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
 		int day = Integer.parseInt(simpleDateformat.format(date));
 		return day;
 	}
 
+	public static int getWeekOfTheYear(Date date) {
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("w"); // w --> numero semana year
+		int day = Integer.parseInt(simpleDateformat.format(date));
+		return day;
+	}
 
 	// Este metodo nos ayuda a calcular la posicion de los dias en la matriz
 	public static int getDayInWeek(LocalDate date) {
@@ -127,13 +126,12 @@ public class DateTools {
 		int dias = 7 - (date.getDayOfWeek().getValue() - 1);
 		return date = date.plusDays(dias);
 	}
-	
+
 	public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
-        return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
+		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
 	public static Date convertToDateViaInstant(LocalDate dateToConvert) {
-	    return java.util.Date.from(dateToConvert.atStartOfDay()
-	      .atZone(ZoneId.systemDefault())
-	      .toInstant());
+		return java.util.Date.from(dateToConvert.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
 }
